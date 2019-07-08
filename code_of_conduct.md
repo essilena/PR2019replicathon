@@ -6,7 +6,7 @@ We try to cultivate a community with shared values, where people are comfortable
 
 Be considerate in speech and actions, and actively seek to acknowledge and respect the boundaries of fellow community members.
 
-Take care of each other. Alert a member of the organizers or facilitators if you notice a dangerous situation, someone in distress, or a potential violation of this Code of Conduct, even if it seems inconsequential.
+Take care of each other. Alert one of the organizers or facilitators if you notice a dangerous situation, someone in distress, or a potential violation of this Code of Conduct, even if it seems inconsequential.
 
 We do not tolerate harassment in any form. Refrain from demeaning, discriminatory, or harassing behavior and speech. Harassment includes, but is not limited to:
 
