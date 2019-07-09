@@ -193,19 +193,25 @@ The process of reading in data and getting it in a format for analysis is often 
 
 ### Importing Data into R
 
-The first step when preparing to analyze data is to read in the data into R. There are several ways to do this, but we are going to focus on reading in data stored in an external Comma-Separated Value (CSV) file. This can be done with the help of the `read.csv` function.
+The first step when preparing to analyze data is to read in the data into R. There are several ways to do this, but we are going to focus on reading in data stored either as an external Comma-Separated Value (CSV) file or "serialized" R data (RDS) object. Small datasets are often stored as Excel files. Although there are R packages designed to read Excel (xls/xlsx) format, you generally want to avoid this. In addition to the values stored in each individual cell, Excel spreadsheets oftain contain information in annotations (e.g. bold, italics, colors). Parsing these additional annotations is messy and imperfect. Many of these additional "features" of Excel spreadsheets can cause profound headaches for downstream data analysis. For these reasons, it is almost always preferable to save data as a plain-text or R object file. Frequently, plain text files are saved in either comma delimited (CSV) or tab delimited (TSV) format.
 
-Small datasets are often stored as Excel files.  Although there are R packages designed to read Excel (xls/xlsx) format, you generally want
-to avoid this and save files as comma delimited (Comma-Separated
-Value/CSV) or tab delimited (Tab-Separated Value/TSV) files.
-These plain-text formats are often easier for sharing, as commercial software is not required for viewing or
-working with the data.
+#### Importing CSV Files
 
-If your data is not in CSV format there are many other helpful functions that will read your data into R, such as `read.table`, `read.delim`, `download.file`.  Check out their help pages to learn more.
+Plain-text formats are often easiest for sharing, as commercial software is not required for viewing or
+working with the data. CSV files can be read into R with the help of the `read.csv` function. Similarly,
+data.frames can be written to CSV files using the `write.csv` function.
 
-If you are reading in a file stored on your computer, the first step is to find the file containing your data and know its *path*. 
+If your data is not a text file but not in CSV format, there are many other helpful functions that will read your data into R, such as `read.table`, `read.delim`, `download.file`.  Check out their help pages to learn more.
+
+#### Importing RDS Files
+
+Another common format for storing data in R is the `RDS` file format. Unlike plain-text files, `RDS` files are _binary_ files and cannot be opened and inspected using standard text editors. Instead, `RDS` files must be read in to R using the `readRDS` function. An object in R can be saved as an `RDS` file using the appropriately named `saveRDS` function. While `RDS` files can only be read using R, they are almost always substantially smaller than the corresponding CSV or TSV file. 
+
+Throughout, we will be working with tables stored as `RDS` files.
 
 ### Paths and the Working Directory
+
+If you are reading in a file stored on your computer, the first step is to find the file containing your data and know its *path*.
 
 When you are working in R it is useful to know your _working directory_. This is the directory or folder in which R will save or look for files by default. You can see your working directory thought the console by typing:
 
@@ -220,11 +226,11 @@ The functions that read and write files (there are several in R) assume you mean
 As an example, let's read in one of the datasets we'll be analyzing today:
 
 ```{r readRaw}
-rawFile <- "rawPharmacoData.csv"
+rawFile <- "rawPharmacoData.rds"
 if (!file.exists(rawFile)) {
     source("downloadData.R")
 }
-pharmacoData <- read.csv(rawFile)
+pharmacoData <- readRDS(rawFile)
 ```
 
 Once we have read a dataset into an _object_ (here we called it `pharmacoData`), we are ready to explore it. What exactly is in `pharmacoData`? To check a summary of its contents, the `str()` function is handy (which stands for 'structure').
@@ -288,14 +294,14 @@ Vectors are a sequence of data elements of the same type (class). Many of the op
 The most basic way to creat a vector is with the function `c`.
 
 ```{r}
-x <- c(1,2,3,4,5)
+x <- c(1, 2, 3, 4, 5)
 ```
 
 Two very common ways of generating vectors are using `:` or the `seq` function.
 
 ```{r}
 x <- 1:5
-x <- seq(1,5)
+x <- seq(1, 5)
 ```
 
 Vectors can have names.
