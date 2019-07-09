@@ -1,0 +1,120 @@
+---
+title: "Tutorial 1: Exploratory Analysis (raw data)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(cache=FALSE)
+```
+
+## Introduction
+
+Probably the most important step of analyzing datasets is to actually understand 
+the data. This process is crucial to know what kind of questions we can 
+answer with it. This tutorial has code that will help guiding 
+you through this process. Make sure you understand well the experimental design of the
+two studies and try to link each variable to this experimental design. Also, make sure you 
+understand what each *R* command is doing. Feel free to hack the code!
+
+If you have any question about the code, ask one of the mentors.
+Also remember that [google](https://www.google.com) is one of the most important tool for 
+data science. 
+
+## Setup Workspace
+
+We start by loading the tidyverse family of packages.
+
+```{r}
+library(tidyverse)
+```
+
+There are [several pre-defined themes for plotting with `ggplot2`](https://ggplot2.tidyverse.org/reference/ggtheme.html). 
+While the default "`theme_gray`" is nice, we will set the default to "`theme_bw`" using the `theme_set` function.
+
+```{r}
+theme_set(theme_bw())
+```
+
+## Load Raw Dataset
+
+Let's start by loading the `RDS` file containing the raw pharmacological data.
+
+```{r read-rds}
+pharmacoData <- readRDS(file.path("..", "data", "rawPharmacoData.rds"))
+```
+
+## Exploratory Analysis
+
+What kind of variables are in the data? Are these variables numerical and/or categorical? What does each column represent?
+
+```{r quest2}
+head(pharmacoData)
+str(pharmacoData)
+```
+
+How many drugs are contained in these data?
+
+```{r quest3}
+length(levels(pharmacoData$drug))
+```
+
+How many drug concentrations were used in each study?
+
+```{r quest4}
+pharmacoData %>%
+    dplyr::distinct(study, concentration) %>%
+    dplyr::count(study)
+
+pharmacoData %>%
+    dplyr::group_by(study) %>%
+    dplyr::summarize(n = n_distinct(concentration))
+
+tapply(pharmacoData$concentration, pharmacoData$study, dplyr::n_distinct)
+```
+
+One of the first things data scientists do when
+digging into new data is to explore their distributions. 
+Histograms visualize the data distributions and can also point us towards statistical 
+models to use. The code below 
+transforms the data into a logarithmic scale and plots a histogram separately for each study. Based on these plots, which study would you say 
+has the most consistent experimental protocol?
+
+```{r quest6, warning=FALSE}
+ggplot(pharmacoData, aes(x = log2(concentration))) +
+    geom_histogram(fill = "white", color = "black") +
+    facet_wrap(~ study)
+```
+
+Viability scores are the percentage
+of cells that survive upon exposure to a certain drug.
+Below, we will explore the range of the data and calculate how
+many data points are below 0 and above 100.
+
+```{r}
+range( pharmacoData$viability )
+sum( pharmacoData$viability < 0 )
+sum( pharmacoData$viability > 100 )
+```
+We can also compare the distribution of viability scores between 
+the two studies using density plots. Based on the distribution of 
+the viability scores, would you say there are obvious differences 
+between the two studies?
+
+```{r}
+ggplot(pharmacoData, aes(x = viability, group = study, colour = study)) +
+    geom_density(fill = "white", lwd = 2, alpha = 0.1) +
+    xlim(0, 170)
+```
+
+The code below plots the viability scores as box-plots for each drug, stratified by the two studies. Can you tell something about the toxic properties of the different 
+drugs? Are these properties consistent across studies?
+
+```{r}
+ggplot(pharmacoData, aes(y = viability, x = drug, fill = study)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=.5)) +
+    ylim(0, 200)
+```

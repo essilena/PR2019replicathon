@@ -12,7 +12,7 @@ This tutorial will go over some basics about programming in R.  We hope that you
 
 Although R is technically a programming language, it was developed specifically for analyzing data.  It has many built-in tools for common analysis tasks, as well as countless more available for add-on that have been developed by the R community.  Since it is a language, however, you are not limited to carrying out tasks or analyses that someone has already implemented.  R is widely-used, free, and open-source with great community support.
 
-## Getting R/RStudio set up
+## Getting R/RStudio Set Up
 
 If you haven't already installed R and RStudio on your computer, please follow these instructions to get set up.
 
@@ -179,7 +179,6 @@ as.numeric(as.character(myNumber))^2
 
 ```{r}
 mean(c(3, 4, 5, NA))
-?mean
 mean(c(3, 4, 5, NA), na.rm = TRUE)
 ```
 
@@ -226,7 +225,7 @@ The functions that read and write files (there are several in R) assume you mean
 As an example, let's read in one of the datasets we'll be analyzing today:
 
 ```{r readRaw}
-rawFile <- "rawPharmacoData.rds"
+rawFile <- file.path("..", "data", "rawPharmacoData.rds")
 if (!file.exists(rawFile)) {
     source(file.path("..", "downloadData.R"), chdir = TRUE)
 }
