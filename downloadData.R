@@ -138,22 +138,67 @@ clDataGDSC <- dplyr::rename(clDataGDSC,
 
 
 ## ##############################################################################
+## Parse subset of drug metadata cleaned by Haibe-Kains et al. (2014)
+## ##############################################################################
+
+## parse cell line metadata in CCLE, GDSC objects separately
+
+## parse drug metadata from CCLE
+drugMapCCLE <- common[["CCLE"]]@curation$drug
+drugMapCCLE <- dplyr::mutate_if(drugMapCCLE, is.factor, as.character)
+drugDataCCLE <- common[["CCLE"]]@drug
+drugDataCCLE <- dplyr::left_join(drugDataCCLE, drugMapCCLE, by = c("drug.name" = "CCLE.drugid"))
+drugDataCCLE <- dplyr::select(drugDataCCLE,
+                              drug = unique.drugid,
+                              class = Class)
+
+## parse drug metadata from GDSC
+drugMapGDSC <- common[["GDSC"]]@curation$drug
+drugMapGDSC <- dplyr::mutate_if(drugMapGDSC, is.factor, as.character)
+drugDataGDSC <- common[["GDSC"]]@drug
+drugDataGDSC <- dplyr::left_join(drugDataGDSC, drugMapGDSC, by = c("drug.name" = "GDSC.drugid"))
+drugDataGDSC <- dplyr::select(drugDataGDSC,
+                              drug = unique.drugid,
+                              type = Drug.type,
+                              targetted = Drug.class.II)
+
+## merge drug data
+drugData <- dplyr::full_join(drugDataGDSC, drugDataCCLE, by = "drug")
+
+
+## ##############################################################################
 ## Save parsed datasets
 ## ##############################################################################
 
-write.table(sumData, sep = ",", quote = FALSE, col.names = TRUE,
-            row.names = FALSE, file = "summarizedPharmacoData.csv")
+saveRDS(sumData, file = "summarizedPharmacoData.rds")
 
-write.table(rawData, sep = ",", quote = FALSE, col.names = TRUE,
-            row.names = FALSE, file = "rawPharmacoData.csv")
+saveRDS(rawData, file = "rawPharmacoData.rds")
 
-write.table(exprData, sep = ",", quote = FALSE, col.names = TRUE,
-            row.names = FALSE, file = "exprPharmacoData.csv")
+saveRDS(exprData, file = "exprPharmacoData.rds")
 
-write.table(clDataCCLE, sep = ",", quote = FALSE, col.names = TRUE,
-            row.names = FALSE, file = "cellLineDataCCLE.csv")
+saveRDS(clDataCCLE, file = "cellLineDataCCLE.rds")
 
-write.table(clDataGDSC, sep = ",", quote = FALSE, col.names = TRUE,
-            row.names = FALSE, file = "cellLineDataGDSC.csv")
+saveRDS(clDataGDSC, file = "cellLineDataGDSC.rds")
 
+saveRDS(drugData, file = "drugData.rds")
 
+## alernatively, save as csv files
+if (FALSE) { 
+    write.table(sumData, sep = ",", quote = FALSE, col.names = TRUE,
+                row.names = FALSE, file = "summarizedPharmacoData.csv")
+
+    write.table(rawData, sep = ",", quote = FALSE, col.names = TRUE,
+                row.names = FALSE, file = "rawPharmacoData.csv")
+
+    write.table(exprData, sep = ",", quote = FALSE, col.names = TRUE,
+                row.names = FALSE, file = "exprPharmacoData.csv")
+
+    write.table(clDataCCLE, sep = ",", quote = FALSE, col.names = TRUE,
+                row.names = FALSE, file = "cellLineDataCCLE.csv")
+
+    write.table(clDataGDSC, sep = ",", quote = FALSE, col.names = TRUE,
+                row.names = FALSE, file = "cellLineDataGDSC.csv")
+
+    write.table(drugData, sep = ",", quote = FALSE, col.names = TRUE,
+                row.names = FALSE, file = "drugData.csv")
+}
