@@ -1,6 +1,9 @@
 ---
 title: "Tutorial 0: R Basics"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 This tutorial will go over some basics about programming in R.  We hope that you'll get a feel for what R can do as well as learn where you can learn more to use it on your own (great resources are listed at the end).
@@ -9,7 +12,7 @@ This tutorial will go over some basics about programming in R.  We hope that you
 
 Although R is technically a programming language, it was developed specifically for analyzing data.  It has many built-in tools for common analysis tasks, as well as countless more available for add-on that have been developed by the R community.  Since it is a language, however, you are not limited to carrying out tasks or analyses that someone has already implemented.  R is widely-used, free, and open-source with great community support.
 
-## Getting R/RStudio set up on your own computer
+## Getting R/RStudio set up
 
 If you haven't already installed R and RStudio on your computer, please follow these instructions to get set up.
 
@@ -53,7 +56,7 @@ x + y
 
 Note also the window above the console.  This is where you can store lines of code to be executed in a particular sequence, and these can be saved in a script (a text file with a ".R" extension) or as an R Markdown notebook (with a ".Rmd" extension) so that you can reproduce your results later or run your code on another dataset.
 
-## The R environment
+## The R Environment
 
 When you download R from CRAN you get what we call _base_ R. This includes several _functions_ that are considered fundamental for data analysis. It also includes several example datasets. These datasets are particularly useful as examples when we are learning to use the available functions. You can see all the available dataset by executing the function `data` like this:
 
@@ -105,7 +108,7 @@ If you ever try to load a package with the `library` command and get an error, i
 install it first. Note that there are reasons to reinstall packages that already exist in your library (e.g., to 
 receive updated versions of packages).
 
-### Getting help
+### Getting Help
 
 A key feature you need to know about R is that you can get help for a function using `help` or `?`, like this:
 
@@ -137,20 +140,20 @@ Although there are different styles and languages of programming, in essence a p
 
 Here are some general tips and pitfalls to avoid that will be useful when writing R code
 
-#### **1. Case matters**: variable names, keywords, functions, and package names are all case-sensitive
+**1. Case matters**: variable names, keywords, functions, and package names are all case-sensitive
 
 ```{r, error=TRUE}
 x <- 2
 X + 8
 ```
 
-#### **2. Avoid using spaces**: variable names cannot contain spaces
+**2. Avoid using spaces**: variable names cannot contain spaces
 
 ```{r, error=TRUE}
 my variable <- 10
 ```
 
-#### **3. Use comments liberally**: your future self and others will thank you
+**3. Use comments liberally**: your future self and others will thank you
 
 ```{r}
 # define scalar variables x and y
@@ -161,7 +164,7 @@ y <- 3
 x + y
 ```
 
-#### **4. Pay attention to classes**: character strings, numerics, factors, matrices, lists, data.frames, etc., all behave differently in R 
+**4. Pay attention to classes**: character strings, numerics, factors, matrices, lists, data.frames, etc., all behave differently in R 
 
 ```{r, error=TRUE}
 myNumber <- factor(10)
@@ -172,7 +175,7 @@ as.character(myNumber)^2
 as.numeric(as.character(myNumber))^2
 ```
 
-#### **5. Search the documentation for answers**: when something unexpected happens, try to find out why by reading the documentation
+**5. Search the documentation for answers**: when something unexpected happens, try to find out why by reading the documentation
 
 ```{r}
 mean(c(3, 4, 5, NA))
@@ -180,7 +183,7 @@ mean(c(3, 4, 5, NA))
 mean(c(3, 4, 5, NA), na.rm = TRUE)
 ```
 
-#### **6. It's OK to make mistakes**: expert R programmers run into (and _learn_ from) errors all the time
+**6. It's OK to make mistakes**: expert R programmers run into (and _learn_ from) errors all the time
 
 Don't panic about those error messages! 
 
@@ -202,7 +205,7 @@ If your data is not in CSV format there are many other helpful functions that wi
 
 If you are reading in a file stored on your computer, the first step is to find the file containing your data and know its *path*. 
 
-#### Paths and the Working Directory
+### Paths and the Working Directory
 
 When you are working in R it is useful to know your _working directory_. This is the directory or folder in which R will save or look for files by default. You can see your working directory thought the console by typing:
 
@@ -242,7 +245,7 @@ Another option is to open up a 'spreadsheet' tab in another RStudio window, whic
 View(pharmacoData)
 ```
 
-#### Class types
+### Class Types
 
 There are many different data types in R, but a list of the more common ones include:
 
@@ -264,7 +267,7 @@ one can use the `class` function.
 class(pharmacoData)
 ```
 
-#### Extracting columns
+### Extracting Columns
 
 To extract columns from the data.frame we use the `$` character like this (to avoid printing the entire column to the screen, we'll add the `head` function to just print the top):
 
@@ -278,7 +281,7 @@ This now gives us a vector. We can access elements of the vector using the `[` s
 pharmacoData$drug[5000]
 ```
 
-#### Vectors
+### Vectors
 
 Vectors are a sequence of data elements of the same type (class). Many of the operations used to analyze data are applied to vectors. In R, vectors can be numeric, characters or logical. 
 
@@ -302,7 +305,7 @@ names(x) <- letters[1:5]
 x
 ```
 
-#### Functions 
+### Functions 
 
 Up to now we have used prebuilt functions. However, many times we have to construct our own. We can do this in R using `function`.
 
