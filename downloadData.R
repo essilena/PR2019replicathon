@@ -170,35 +170,31 @@ drugData <- dplyr::full_join(drugDataGDSC, drugDataCCLE, by = "drug")
 ## Save parsed datasets
 ## ##############################################################################
 
-saveRDS(sumData, file = "summarizedPharmacoData.rds")
-
-saveRDS(rawData, file = "rawPharmacoData.rds")
-
-saveRDS(exprData, file = "exprPharmacoData.rds")
-
-saveRDS(clDataCCLE, file = "cellLineDataCCLE.rds")
-
-saveRDS(clDataGDSC, file = "cellLineDataGDSC.rds")
-
-saveRDS(drugData, file = "drugData.rds")
+dir.create("data", showWarnings = FALSE)
+saveRDS(sumData, file = file.path("data", "summarizedPharmacoData.rds"))
+saveRDS(rawData, file = file.path("data", "rawPharmacoData.rds"))
+saveRDS(exprData, file = file.path("data", "exprPharmacoData.rds"))
+saveRDS(clDataCCLE, file = file.path("data", "cellLineDataCCLE.rds"))
+saveRDS(clDataGDSC, file = file.path("data", "cellLineDataGDSC.rds"))
+saveRDS(drugData, file = file.path("data", "drugData.rds"))
 
 ## alernatively, save as csv files
 if (FALSE) { 
     write.table(sumData, sep = ",", quote = FALSE, col.names = TRUE,
-                row.names = FALSE, file = "summarizedPharmacoData.csv")
+                row.names = FALSE, file = file.path("data", "summarizedPharmacoData.csv"))
 
     write.table(rawData, sep = ",", quote = FALSE, col.names = TRUE,
-                row.names = FALSE, file = "rawPharmacoData.csv")
+                row.names = FALSE, file = file.path("data", "rawPharmacoData.csv"))
 
     write.table(exprData, sep = ",", quote = FALSE, col.names = TRUE,
-                row.names = FALSE, file = "exprPharmacoData.csv")
+                row.names = FALSE, file = file.path("data", "exprPharmacoData.csv"))
 
     write.table(clDataCCLE, sep = ",", quote = FALSE, col.names = TRUE,
-                row.names = FALSE, file = "cellLineDataCCLE.csv")
+                row.names = FALSE, file = file.path("data", "cellLineDataCCLE.csv"))
 
     write.table(clDataGDSC, sep = ",", quote = FALSE, col.names = TRUE,
-                row.names = FALSE, file = "cellLineDataGDSC.csv")
+                row.names = FALSE, file = file.path("data", "cellLineDataGDSC.csv"))
 
     write.table(drugData, sep = ",", quote = FALSE, col.names = TRUE,
-                row.names = FALSE, file = "drugData.csv")
+                row.names = FALSE, file = file.path("data", "drugData.csv"))
 }

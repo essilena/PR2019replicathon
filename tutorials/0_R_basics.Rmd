@@ -38,12 +38,12 @@ Windows we have special
 
 Now that you have opened up RStudio, you are ready to start working with data. Whichever approach you are using to interact with R, you should identify the console. 
 
-![](Figures/console-screen-shot.png)
+![](../Figures/console-screen-shot.png)
 
 When you type a line of code into the consult and hit enter the command gets _executed_. For example, try using R as a calculator by typing:
 
 ```{r}
-2+3
+2 + 3
 ```
 
 We can also assign values to variables. Try the following:
@@ -228,7 +228,7 @@ As an example, let's read in one of the datasets we'll be analyzing today:
 ```{r readRaw}
 rawFile <- "rawPharmacoData.rds"
 if (!file.exists(rawFile)) {
-    source("downloadData.R")
+    source(file.path("..", "downloadData.R"), chdir = TRUE)
 }
 pharmacoData <- readRDS(rawFile)
 ```
