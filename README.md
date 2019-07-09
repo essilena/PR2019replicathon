@@ -16,7 +16,7 @@ Clone or download this repository to your computer and open the `.Rmd` files in 
 
 Each tutorial contains text and code that explores various aspects of data science, replicability, and reproducibility. Tutorial 0 provides a gentle introduction to R for those with limited programming experience. Tutorials 1-4 contain questions to fill in, some require written answers and some require code to produce a plot or numerical summary.
 
-* [`R_basics.Rmd`](R_basics.Rmd) : R markdown tutorial 0 - "R Basics"
+* [`0_R_basics.Rmd`](0_R_basics.Rmd) : R markdown tutorial 0 - "R Basics"
 
 * [`exploration.Rmd`](exploration.Rmd) : R markdown tutorial 1 - "What to do when you first get data"
 
