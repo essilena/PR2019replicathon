@@ -28,6 +28,12 @@ Each tutorial contains text and code that explores various aspects of data scien
 
 * [`2b_deeper_summarization.Rmd`](tutorials/2b_deeper_summarization.Rmd) : "Digging deeper with  drug response data summarization"
 
+**Supplementary Tutorials**
+
+* [`supplement_correlation.Rmd`](tutorials/supplement_correlation.Rmd) : "Correlation Measures"
+
+* [`supplement_regression.Rmd`](tutorials/supplement_regression.Rmd) : "Modeling Associations with Regression"
+
 ## Code to generate data files (You do not need to use this)
 
 For full reproducibility, this is the script to generate the `RDS` files. This step has already been done for you, and the data files should be available as part of this repository without running the script.
