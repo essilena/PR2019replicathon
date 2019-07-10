@@ -2,7 +2,7 @@
 
 Clone or download this repository to your computer and open the `.Rmd` files in [RStudio](https://rstudio.com/).
 
-## Main Analysis Template R Markdown
+## Main Analysis Template
 
 * [`analysis_template.Rmd`](analysis_template.Rmd) : R markdown template which each team will use to create a fully reproducible analysis with the goal of assessing and interpreting the replicability of two pharmacogenomic experiments. This document will contain all of the text and code of their analyses, which are quided by a series of questions. The tools and concepts needed to answer the questions are explored in the tutorials.
 
@@ -16,17 +16,17 @@ Clone or download this repository to your computer and open the `.Rmd` files in 
 
 Each tutorial contains text and code that explores various aspects of data science, replicability, and reproducibility. Tutorials `0a` provides a gentle introduction to R for those with limited programming experience. Tutorials `1a` to `2b` contain questions to fill in, some require written answers and some require code to produce a plot or numerical summary.
 
-* [`0a_R_basics.Rmd`](tutorials/0_R_basics.Rmd) : tutorial 0a - "Introduction to R Basics"
+* [`0a_R_basics.Rmd`](tutorials/0_R_basics.Rmd) : "Introduction to R Basics"
 
-* [`0b_R_tidyverse.Rmd`](tutorials/0b_R_tidyverse.Rmd) : tutorial 0b - "Introduction to Tidyverse"
+* [`0b_R_tidyverse.Rmd`](tutorials/0b_R_tidyverse.Rmd) : "Introduction to the Tidyverse"
 
-* [`1a_explore_rawData.Rmd`](tutorials/1a_explore_rawData.Rmd) : tutorial 1a - "Exploring pharmacogenomic data with the `rawPharmacData` dataset"
+* [`1a_explore_rawData.Rmd`](tutorials/1a_explore_rawData.Rmd) : "Exploring pharmacogenomic data with the `rawPharmacData` dataset"
 
-* [`1b_explore_summarizedData.Rmd`](tutorials/1b_explore_summarizedData.Rmd) : tutorial 1b - "Exploring replicability with the `summarizedPharmacoData` dataset"
+* [`1b_explore_summarizedData.Rmd`](tutorials/1b_explore_summarizedData.Rmd) : "Exploring replicability with the `summarizedPharmacoData` dataset"
 
-* [`2a_deeper_subgroups.Rmd`](tutorials/2a_deeper_subgroups.Rmd) : tutorial 2a - "Digging deeper by looking at cell line and drug subgroups"
+* [`2a_deeper_subgroups.Rmd`](tutorials/2a_deeper_subgroups.Rmd) : "Digging deeper with cell line and drug subgroups"
 
-* [`2b_deeper_summarization.Rmd`](tutorials/2b_deeper_summarization.Rmd) : tutorial 2b - "Digging deeper by looking at how drug response data was summarized"
+* [`2b_deeper_summarization.Rmd`](tutorials/2b_deeper_summarization.Rmd) : "Digging deeper with  drug response data summarization"
 
 ## Code to generate data files (You do not need to use this)
 
