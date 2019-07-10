@@ -19,7 +19,7 @@ Recall that in the summarized dataset, for each cell line and drug combination, 
 
 1. IC50: the estimated concentration of the drug that will result in half (50%) of the cells surviving. 
 
-![](../Figures/IC50.jpg)
+![](../figures/IC50.jpg)
 
 Are cell lines with higher IC50 values more or less susceptible? What about drugs with higher IC50 values - are they more or less toxic?
 
@@ -29,7 +29,7 @@ Are cell lines with higher IC50 values more or less susceptible? What about drug
 
 2. AUC (Area Under the Curve): despite the name, this is actually the area *above* the curve estimated by the drug concentration and viability data (or 1-area under the curve). Note that the estimation of this curve is not a simple task in itself - check out the vignette on summarizing the relationship between two variables to learn more. 
 
-![](../Figures/AUC.jpg)
+![](../figures/AUC.jpg)
 
 Are cell lines with higher values of AUC more or less resistant?
 

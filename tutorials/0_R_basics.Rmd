@@ -38,7 +38,7 @@ Windows we have special
 
 Now that you have opened up RStudio, you are ready to start working with data. Whichever approach you are using to interact with R, you should identify the console. 
 
-![](../Figures/console-screen-shot.png)
+![](../figures/console-screen-shot.png)
 
 When you type a line of code into the consult and hit enter the command gets _executed_. For example, try using R as a calculator by typing:
 
