@@ -17,6 +17,7 @@ Although R is technically a programming language, it was developed specifically 
 If you haven't already installed R and RStudio on your computer, please follow these instructions to get set up.
 
 ### Installing R
+
 To set up your own computer, the first step is to install R. You can download and install R from
 the [Comprehensive R Archive Network](https://cran.r-project.org/)
 (CRAN). It is relatively straightforward, but if you need further help
