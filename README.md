@@ -16,7 +16,7 @@ Clone or download this repository to your computer and open the `.Rmd` files in 
 
 Each tutorial contains text and code that explores various aspects of data science, replicability, and reproducibility. Tutorials `0a` provides a gentle introduction to R for those with limited programming experience. Tutorials `1a` to `2b` contain questions to fill in, some require written answers and some require code to produce a plot or numerical summary.
 
-* [`0a_R_basics.Rmd`](tutorials/0_R_basics.Rmd) : "Introduction to R Basics"
+* [`0a_R_basics.Rmd`](tutorials/0a_R_basics.Rmd) : "Introduction to R Basics"
 
 * [`0b_R_tidyverse.Rmd`](tutorials/0b_R_tidyverse.Rmd) : "Introduction to the Tidyverse"
 
