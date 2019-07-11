@@ -36,7 +36,7 @@ Each tutorial contains text and code that explores various aspects of data scien
 
 * [`supplement_correlation.Rmd`](tutorials/supplement_correlation.Rmd) : "Correlation Measures"
 
-* [`supplement_dose_response.Rmd`](tutorials/supplement_doser_esponse.Rmd) : "Dose-Response Modeling"
+* [`supplement_dose_response.Rmd`](tutorials/supplement_dose_response.Rmd) : "Dose-Response Modeling"
 
 * [`supplement_PCA_clustering.Rmd`](tutorials/supplement_PCA_clustering.Rmd) : "Exploring High Dimensional Data with PCA and Clustering"
 
