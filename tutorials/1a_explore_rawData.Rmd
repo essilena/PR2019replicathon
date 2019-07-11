@@ -1,5 +1,5 @@
 ---
-title: "Tutorial 1: Exploratory Analysis (raw data)"
+title: "Tutorial 1a: Exploring Pharmacological Data with the `rawPharmacData` Dataset"
 output:
   html_document:
     toc: true
@@ -15,13 +15,19 @@ knitr::opts_chunk$set(cache=FALSE)
 Probably the most important step of analyzing datasets is to actually understand 
 the data. This process is crucial to know what kind of questions we can 
 answer with it. This tutorial has code that will help guiding 
-you through this process. Make sure you understand well the experimental design of the
-two studies and try to link each variable to this experimental design. Also, make sure you 
-understand what each *R* command is doing. Feel free to hack the code!
+you through this process with the `rawPharmacoData` dataset.
+Make sure you understand the experimental design of the
+two studies well and try to link each variable to this experimental design.
+Also, make sure you understand what each *R* command is doing.
+Feel free to hack the code!
+
+When it makes sense, we include examples for answering the question using
+both base R and the tidyverse packages. There's usually more than one way of
+doing things in R!
 
 If you have any question about the code, ask one of the mentors.
-Also remember that [google](https://www.google.com) is one of the most important tool for 
-data science. 
+Also remember that [Google search](https://www.google.com) is one of the most important tools
+for data science. 
 
 ## Setup Workspace
 
@@ -48,73 +54,111 @@ pharmacoData <- readRDS(file.path("..", "data", "rawPharmacoData.rds"))
 
 ## Exploratory Analysis
 
-What kind of variables are in the data? Are these variables numerical and/or categorical? What does each column represent?
+What kind of variables are in the data? Are these variables numerical and/or categorical?
+What does each column represent?
 
-```{r quest2}
+```{r peek-data}
 head(pharmacoData)
 str(pharmacoData)
 ```
 
 How many drugs are contained in these data?
 
-```{r quest3}
-length(levels(pharmacoData$drug))
+```{r count-drugs}
+## using base R
+length(unique(pharmacoData$drug))
+
+## with the tidyverse
+pharmacoData %>%
+    summarize(nDrugs = n_distinct(drug))
 ```
 
 How many drug concentrations were used in each study?
 
-```{r quest4}
-pharmacoData %>%
-    dplyr::distinct(study, concentration) %>%
-    dplyr::count(study)
+```{r count-conc}
+## with base R
+tapply(pharmacoData$concentration, pharmacoData$study,
+       function(x) { length(unique(x)) })
 
+## with the tidyverse
 pharmacoData %>%
     dplyr::group_by(study) %>%
     dplyr::summarize(n = n_distinct(concentration))
-
-tapply(pharmacoData$concentration, pharmacoData$study, dplyr::n_distinct)
 ```
 
 One of the first things data scientists do when
 digging into new data is to explore their distributions. 
 Histograms visualize the data distributions and can also point us towards statistical 
-models to use. The code below 
-transforms the data into a logarithmic scale and plots a histogram separately for each study. Based on these plots, which study would you say 
-has the most consistent experimental protocol?
+models to use. The code below  transforms the concentration values to the logarithmic scale
+and plots a histogram separately for each study. 
 
-```{r quest6, warning=FALSE}
-ggplot(pharmacoData, aes(x = log2(concentration))) +
-    geom_histogram(fill = "white", color = "black") +
-    facet_wrap(~ study)
+```{r conc-hist, fig.width = 8, fig.height = 4, warning = FALSE}
+pharmacoData %>%
+    ggplot(aes(x = log2(concentration))) +
+    geom_histogram(fill = "gray", color = "black") +
+    facet_wrap(~ study) +
+    ggtitle("Distributions of concentrations by study")
 ```
+
+Based on these plots, which study would you say has the most consistent
+experimental protocol?
 
 Viability scores are the percentage
 of cells that survive upon exposure to a certain drug.
 Below, we will explore the range of the data and calculate how
 many data points are below 0 and above 100.
 
-```{r}
-range( pharmacoData$viability )
-sum( pharmacoData$viability < 0 )
-sum( pharmacoData$viability > 100 )
+```{r viability-summaries}
+## with base R
+range(pharmacoData$viability)
+sum(pharmacoData$viability < 0)
+sum(pharmacoData$viability > 100)
+
+## with the tidyverse
+pharmacoData %>%
+    summarize(min_viability = min(viability),
+              max_viability = max(viability),
+              n_too_small   = sum(viability < 0),
+              n_too_big     = sum(viability > 100))
 ```
+
 We can also compare the distribution of viability scores between 
-the two studies using density plots. Based on the distribution of 
-the viability scores, would you say there are obvious differences 
-between the two studies?
+the two studies using density plots.
 
-```{r}
-ggplot(pharmacoData, aes(x = viability, group = study, colour = study)) +
-    geom_density(fill = "white", lwd = 2, alpha = 0.1) +
-    xlim(0, 170)
+```{r log-density, fig.width = 8, fig.height = 4, warning = FALSE}
+pharmacoData %>%
+    ggplot(aes(x = viability, group = study, fill = study, color = study)) +
+    geom_density(alpha = 1/4) +
+    xlim(0, 170) +
+    ggtitle("Distributions of viability scores by study")
 ```
 
-The code below plots the viability scores as box-plots for each drug, stratified by the two studies. Can you tell something about the toxic properties of the different 
+Based on the distribution of the viability scores, would you say there
+are obvious differences between the two studies?
+
+The code below plots the viability scores as box-plots for each drug,
+stratified by the two studies. We highlight the region of the plot
+where viability scores should fall (between 0 and 100).
+
+```{r viability-boxplots, fig.width = 8, fig.height = 4, warning = FALSE}
+gp <- pharmacoData %>%
+    ggplot(aes(y = viability, x = drug, fill = study)) +
+    scale_x_discrete() + 
+    annotate(geom = "rect", ymin = 0, ymax = 100, xmin = -Inf, xmax = Inf,
+             fill = 'black', alpha = 1/6) +
+    geom_boxplot(outlier.alpha = 1/5) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 1/2)) +
+    ggtitle("Distributions of viability scores by drug and study")
+gp
+```
+
+There appear to be a few outliers with incredibly high viability scores!
+We should keep this in mind, but to get a better look at the majority of the
+data, we can limit the y-axis of the plot.
+
+```{r viability-boxplots-limit, fig.width = 8, fig.height = 4, warning = FALSE}
+gp + ylim(0, 200)
+```
+
+Can you tell something about the toxic properties of the different 
 drugs? Are these properties consistent across studies?
-
-```{r}
-ggplot(pharmacoData, aes(y = viability, x = drug, fill = study)) +
-    geom_boxplot() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=.5)) +
-    ylim(0, 200)
-```
