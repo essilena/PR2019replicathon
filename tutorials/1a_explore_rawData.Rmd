@@ -54,6 +54,7 @@ pharmacoData <- readRDS(file.path("..", "data", "rawPharmacoData.rds"))
 
 ## Exploratory Analysis
 
+We can take a quick peek at the data using the `head` and `str` functions.
 What kind of variables are in the data? Are these variables numerical and/or categorical?
 What does each column represent?
 
@@ -62,18 +63,22 @@ head(pharmacoData)
 str(pharmacoData)
 ```
 
-How many drugs are contained in these data?
+Next, we can count the number of drugs and cell lines in the dataset.
 
-```{r count-drugs}
+```{r count-uniq}
 ## using base R
+length(unique(pharmacoData$cellLine))
 length(unique(pharmacoData$drug))
 
 ## with the tidyverse
 pharmacoData %>%
-    summarize(nDrugs = n_distinct(drug))
+    summarize(nCellLines = n_distinct(cellLine),
+              nDrugs     = n_distinct(drug))
 ```
 
-How many drug concentrations were used in each study?
+Let's also try something a little more complex.
+We can also count the number of unique drug concentrations
+**in each study** separately.
 
 ```{r count-conc}
 ## with base R
@@ -82,8 +87,8 @@ tapply(pharmacoData$concentration, pharmacoData$study,
 
 ## with the tidyverse
 pharmacoData %>%
-    dplyr::group_by(study) %>%
-    dplyr::summarize(n = n_distinct(concentration))
+    group_by(study) %>%
+    summarize(n = n_distinct(concentration))
 ```
 
 One of the first things data scientists do when
@@ -102,6 +107,8 @@ pharmacoData %>%
 
 Based on these plots, which study would you say has the most consistent
 experimental protocol?
+
+> Place your answer here
 
 Viability scores are the percentage
 of cells that survive upon exposure to a certain drug.
@@ -136,6 +143,8 @@ pharmacoData %>%
 Based on the distribution of the viability scores, would you say there
 are obvious differences between the two studies?
 
+> Place your answer here
+
 The code below plots the viability scores as box-plots for each drug,
 stratified by the two studies. We highlight the region of the plot
 where viability scores should fall (between 0 and 100).
@@ -162,3 +171,5 @@ gp + ylim(0, 200)
 
 Can you tell something about the toxic properties of the different 
 drugs? Are these properties consistent across studies?
+
+> Place your answer here
