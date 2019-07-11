@@ -239,11 +239,11 @@ Does this agree with your visual assessment and answers to these same questions 
 
 ## Targeted Nature of Drugs
 
-In addition to sensitivity of cell lines, another biological factor that might have major implications for the perceived replicability of studies is the **targeted** nature of the drugs used. A drug is considered **targeted** if it is expected to have selective activity against some cell lines. The mechanism of impact on perceived replicability is very similar to the impact of sensitivity of cell lines: the response in the cell lines that the drug does *not* target may represent random noise (and we don't expect to observe correlations in random noise). For this reason, some of the followup articles indicated that drugs should be considered separately based on their targeted nature. 
+In addition to sensitivity of cell lines, another biological factor that might have major implications for the perceived replicability of studies is the **targeted** nature of the drugs used. A drug is considered **targeted** if it is expected to have selective activity against some cell lines. The mechanism of impact on perceived replicability is very similar to the impact of sensitivity of cell lines: the response in the cell lines that the drug does *not* target may represent random noise (and we don't expect to observe correlations in random noise). For this reason, some of the follow-up articles indicated that drugs should be considered separately based on their targeted nature. 
 
 [Safikhani et al.](https://f1000research.com/articles/5-2333/v1) describe the following three classes of drugs based on observed responses of the cell lines:
 
-* **No effect**: minimal observed resposne for all cell lines
+* **No effect**: minimal observed response for all cell lines
     + sorafenib
     + erlotinib
     + PHA-665752
