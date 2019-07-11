@@ -54,29 +54,29 @@ theme_set(theme_bw())
 Let's start by loading the `RDS` file containing the summarized pharmacological data (including the IC50 and AUC values for each drug and cell line combination, as described above). 
 
 ```{r read-rds}
-cellLinesSummary <- readRDS(file.path("..", "data", "summarizedPharmacoData.rds"))
+summarizedData <- readRDS(file.path("..", "data", "summarizedPharmacoData.rds"))
 ```
 
 As we did with the raw data, we'll take a quick peek at this data before getting started.
 
 ```{r peek-data}
-str(cellLinesSummary)
+str(summarizedData)
 ```
 
 We can count the number of cell lines and drugs in the data.
 
 ```{r count-uniq}
 ## with base R
-length(unique(cellLinesSummary$cellLine))
-length(unique(cellLinesSummary$drug))
+length(unique(summarizedData$cellLine))
+length(unique(summarizedData$drug))
 
 ## with the tidyverse
-cellLinesSummary %>%
+summarizedData %>%
     summarize(nCellLines = n_distinct(cellLine),
               nDrugs     = n_distinct(drug))
 ```
 
-Notice that there are `r nrow(cellLinesSummary)` rows - each row here corresponds to a cell line-drug combination. 
+Notice that there are `r nrow(summarizedData)` rows - each row here corresponds to a cell line-drug combination. 
 Making up these combinations are 288 unique cell lines, and 15 drugs. 
 
 Was every cell line in the dataset tested with every drug?
@@ -92,7 +92,7 @@ So we now have summary measures (IC50 and AUC) that indicate the responses of ce
 First, we'll examine this question for one of the drugs in particular: **AZD0530**. To make our code easier to read, let's create a separate object from for this subset of the data and call it `azdSummary`.
 
 ```{r one-drug-subset}
-azdSummary <- subset(cellLinesSummary, drug == "AZD0530")
+azdSummary <- subset(summarizedData, drug == "AZD0530")
 ```
 
 We'll start out by visually exploring how the AUC values for AZD0530 compare in the two datasets using a scatterplot.
@@ -146,7 +146,7 @@ How would you describe the level of agreement between the IC50 values of cell li
 So far, we have only looked at how well the two studies agree for the response measurements of a single drug. However, we need to look at the rest of the drugs to fully assess the level of replication. First, we set out to reproduce Figure 2 in the Haibe-Kains paper, which displays scatter plots of IC50 values for the 15 drugs that were probed in both the CCLE and GDSC. Essentially, we are going to make the plots from the previous section for all 15 drugs at once and compare them side-by-side.
 
 ```{r ic50-all-drug-log, fig.width = 10, fig.height = 9}
-cellLinesSummary %>%
+summarizedData %>%
     ggplot(aes(x = -log10(ic50_GDSC), y = -log10(ic50_CCLE))) +
     geom_point(alpha = 1/2, cex = 1/2) + 
     facet_wrap(~ drug) +
@@ -155,10 +155,10 @@ cellLinesSummary %>%
     ggtitle("IC50 summaries of cell line response across studies")
 ```
 
-Why do the ranges of the axes not exactly match the axes in Figure 2 of the published paper? Note that the concentrations reported in the `cellLinesSummary` dataset are given in units of mili-molar. However, the plots contain values calculated on the nano-molar scale (1 million times smaller). Thus, we can reproduce the original plot's axis labels by scaling the concentration values by 10^6.
+Why do the ranges of the axes not exactly match the axes in Figure 2 of the published paper? Note that the concentrations reported in the `summarizedData` dataset are given in units of mili-molar. However, the plots contain values calculated on the nano-molar scale (1 million times smaller). Thus, we can reproduce the original plot's axis labels by scaling the concentration values by 10^6.
 
 ```{r ic50-all-drug-scaled, fig.width = 10, fig.height = 9}
-cellLinesSummary %>%
+summarizedData %>%
     ggplot(aes(x = -log10(ic50_GDSC / 10^6),
                y = -log10(ic50_CCLE / 10^6))) +
     geom_point(cex = 1/2) + 
@@ -188,7 +188,7 @@ continous variables mentioned above (Pearson and Spearman correlation coefficien
 
 ```{r ic50-correlation}
 ## with the tidyverse
-drugCorrs <- cellLinesSummary %>% 
+drugCorrs <- summarizedData %>% 
     group_by(drug) %>%
     summarize(Pearson_ic50  = cor(-log10(ic50_GDSC / 10^6), -log10(ic50_CCLE / 10^6), method = "pearson"),
               Spearman_ic50 = cor(-log10(ic50_GDSC / 10^6), -log10(ic50_CCLE / 10^6), method = "spearman"))
