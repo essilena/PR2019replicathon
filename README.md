@@ -18,7 +18,7 @@ Data files are included under the `data` folder.
 
 ## Tutorials
 
-Each tutorial contains text and code that explores various aspects of data science, replicability, and reproducibility. Tutorials `0a` provides a gentle introduction to R for those with limited programming experience. Tutorials `1a` and `1b` get us started with exploring the two original datasets from the CCLE and GDSC studies, `rawPharmacoData.rds` and `summarizedPharmacoData.rds`. Tutorials `2a` and `2b` dig deeper into specific issues that can impact replicability and provide ideas for things to look into for this Replicathon. Finally, the Supplementary Tutorials provide more details that are useful but not immediately necessary for getting started.
+Each tutorial contains text and code that explores various aspects of data science, replicability, and reproducibility. Tutorial `0a` provides a gentle introduction to R for those with limited programming experience, and Tutorial `0b` introduces some of the main functions in the `dplyr` and `tidyr` packages. Tutorials `1a` and `1b` get us started with exploring the two original datasets from the CCLE and GDSC studies, `rawPharmacoData.rds` and `summarizedPharmacoData.rds`. Tutorials `2a` and `2b` dig deeper into specific issues that can impact replicability and provide ideas for things to look into for this Replicathon. Finally, the Supplementary Tutorials provide more details that are useful but not immediately necessary for getting started.
 
 * [`0a_R_basics.Rmd`](tutorials/0a_R_basics.Rmd) : "Introduction to R Basics"
 
