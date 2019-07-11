@@ -39,22 +39,19 @@ summarizedData <- readRDS(file.path("..", "data", "summarizedPharmacoData.rds"))
 Let's start by exploring the IC50 and the AUC statistics that were published in the original manuscripts. To do this, we'll define a function, `plotResponse`, that allows us to visualize the relation between drug response and drug concentration. By writing a function to do the plotting, we reduce the amount of copying and pasting of code in our analysis (which can often introduce unexpected errors!). It also allows us to define a consistent way of plotting that can be applied to different subsets of the data.
 
 ```{r plotResponse}
-plotResponse <- function(drugA, cellLineA, addPublishedIC50 = TRUE) {
+plotResponse <- function(drugA, cellLineA) {
     pharSub <- filter(pharmacoData, drug == drugA, cellLine == cellLineA)
     sumSub <- filter(summarizedData, drug == drugA, cellLine == cellLineA)
-    p <- ggplot(pharSub, aes(x = log10(concentration), y = viability, color = study)) +
+    ggplot(pharSub, aes(x = log10(concentration), y = viability, color = study)) +
         geom_point(size = 2.1) +
         geom_line(lwd = 1.1) +
-        ylim(0, 150)
-    if(addPublishedIC50) {
-        p <- p +
-            geom_vline(xintercept = log10(sumSub[,"ic50_CCLE"]),
-                       color = "#d95f02", linetype = "longdash") +
-            geom_vline(xintercept = log10(sumSub[,"ic50_GDSC"]),
-                       color = "#1b9e77", linetype = "longdash") +
-            geom_hline(yintercept = 50, col = "#00000050", linetype = "longdash")
-    }
-    p + scale_colour_manual(values = c("CCLE" = "#d95f02", "GDSC" = "#1b9e77")) +
+        ylim(0, 150) +
+        geom_vline(xintercept = log10(sumSub[,"ic50_CCLE"]),
+                   color = "#d95f02", linetype = "longdash") +
+        geom_vline(xintercept = log10(sumSub[,"ic50_GDSC"]),
+                   color = "#1b9e77", linetype = "longdash") +
+        geom_hline(yintercept = 50, col = "#00000050", linetype = "longdash") +
+        scale_colour_manual(values = c("CCLE" = "#d95f02", "GDSC" = "#1b9e77")) +
         xlim(range(log10(c(pharSub$concentration, sumSub$ic50_CCLE, sumSub$ic50_GDSC))))
 }
 ```
@@ -62,8 +59,7 @@ plotResponse <- function(drugA, cellLineA, addPublishedIC50 = TRUE) {
 The plot defined above will visualize the viability scores of a single cell line, `cellLineA`, for a single drug, `drugA`, as a function of the drug concentrations in each study. The vertical dotted lines display the IC50 value published from each study. Let's start by exploring how the response curve for the drug `17-AAG` behaves in the cell-line `H4`. Notice that this drug was reported to have consistent viability responses between the two studies.
 
 ```{r plot-17aag-h4}
-plotResponse(drugA = "17-AAG", cellLineA = "H4",
-             addPublishedIC50 = TRUE)
+plotResponse(drugA = "17-AAG", cellLineA = "H4")
 ```
 
 What observations can you draw from this curve? Are the response data holding the assumptions to estimate an IC50 value?
@@ -71,8 +67,7 @@ What observations can you draw from this curve? Are the response data holding th
 Let's now select another drug and cell line combination.
 
 ```{r plot-nilotinib-22rv1}
-plotResponse(drugA = "Nilotinib", cellLineA = "22RV1",
-             addPublishedIC50 = TRUE)
+plotResponse(drugA = "Nilotinib", cellLineA = "22RV1")
 ```
 
 Are the reported IC50 values reflecting the actual behaviour of the response curves? How can IC50 values be estimated if there are no viabilities below 50% for the second example? How did the two different studies deal with these cases?

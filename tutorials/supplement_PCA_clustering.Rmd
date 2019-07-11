@@ -1,5 +1,5 @@
 ---
-title: "Tutorial n: Exploring High Dimensional Data with PCA and Clustering"
+title: "Supplement: Exploring High Dimensional Data with PCA and Clustering"
 output:
   html_document:
     toc: true
