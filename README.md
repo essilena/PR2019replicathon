@@ -2,6 +2,8 @@
 
 Clone or download this repository to your computer and open the `.Rmd` files in [RStudio](https://rstudio.com/).
 
+These materials can also be [viewed online as html pages](https://www.pkimes.com/PR2019replicathon/). 
+
 ## Main Analysis Template
 
 * [`analysis_template.Rmd`](analysis_template.Rmd) : R markdown template which each team will use to create a fully reproducible analysis with the goal of assessing and interpreting the replicability of two pharmacogenomic experiments. This document will contain all of the text and code of their analyses, which are quided by a series of questions. The tools and concepts needed to answer the questions are explored in the tutorials.
