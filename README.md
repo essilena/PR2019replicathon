@@ -2,7 +2,7 @@
 
 Clone or download this repository to your computer and open the `.Rmd` files in [RStudio](https://rstudio.com/).
 
-These materials can also be [viewed online as html pages](https://www.pkimes.com/PR2019replicathon/). 
+These materials can also be [viewed online as html webpages](https://www.pkimes.com/PR2019replicathon/). 
 
 ## Main Analysis Template
 
