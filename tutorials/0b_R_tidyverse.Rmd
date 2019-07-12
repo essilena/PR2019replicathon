@@ -10,13 +10,13 @@ output:
 
 ### Caveat
 
-Before getting started, we would like to point out that learning these packages is not necessary for performing data analysis in R. The R language has existed for 25 years, and while popular, the tidyverse is a relatively new addition to the R ecosystem of packages. Many statisticians, data scientists and other scientists are happy (and highly skilled!) performing data analysis in R without using the tidyverse packages. Most tasks that can be accomplished using packages in the tidyverse can be similarly completed using base R. However, in many cases (in particular, data manipulation), it can be much easier with the tools in the tidyverse. For this and many other reasons (including excellent online documentation and a large user community), we hope that you'll give the tidyverse a try! 
+Before getting started, we would like to point out that learning these packages is not necessary for performing data analysis in R. The R language has existed for 25 years, and while popular, the _tidyverse_ is a relatively new addition to the R ecosystem of packages. Many statisticians, data scientists and other scientists are happy (and highly skilled!) performing data analysis in R without using the _tidyverse_ packages. Most tasks that can be accomplished using packages in the _tidyverse_ can be similarly completed using base R. However, in many cases (in particular, data manipulation), it can be much easier with the tools in the _tidyverse_. For this and many other reasons (including excellent online documentation and a large user community), we hope that you'll give the _tidyverse_ a try! 
 
 ### Scope
 
 If you're still interested and reading, **great!**
 
-This tutorial will go over some basics about programming in R using packages in the [_tidyverse_](https://www.tidyverse.org/). The [_tidyverse_](https://www.tidyverse.org/) is a family of related R packages developed to streamline data science in R. If you've ever used the `ggplot2` package to create plots, you've already experienced part of the tidyverse! The [core tidyverse packages](https://www.tidyverse.org/packages/) include `ggplot2`, `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `stringr`, and `forcats`.
+This tutorial will go over some basics about programming in R using packages in the [_tidyverse_](https://www.tidyverse.org/). The [_tidyverse_](https://www.tidyverse.org/) is a family of related R packages developed to streamline data science in R. If you've ever used the `ggplot2` package to create plots, you've already experienced part of the _tidyverse_! The [core _tidyverse_ packages](https://www.tidyverse.org/packages/) include `ggplot2`, `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `stringr`, and `forcats`.
 
 Phew! That's a lot of packages!
 
@@ -29,7 +29,7 @@ We will assume that you've had some exposure to the powerful plotting capabiliti
 
 ## Installing the Tidyverse
 
-To get started, we will need to install the tidyverse family of packages. 
+To get started, we will need to install the _tidyverse_ family of packages. 
 
 ```{r install-tidyverse, eval = FALSE}
 install.packages("tidyverse")
@@ -41,7 +41,7 @@ If the packages are installed without any errors, we can load them as usual.
 library(tidyverse)
 ```
 
-Notice that the core tidyverse packages are listed under "`Attaching packages`" and loaded without having to load each one separately. How wonderful!
+Notice that the core tidyverse packages are listed under `Attaching packages` and loaded all at once. How wonderful!
 
 To demonstrate the basic usage of these packages, we also import the raw and summarized pharmacological datasets that we'll be analyzing today.
 
@@ -57,7 +57,7 @@ str(summarizedData)
 
 ## The Pipe `%>%`
 
-The ["pipe" symbol (`%>%`)](https://magrittr.tidyverse.org/reference/pipe.html) is a commonly used feature of the tidyverse. It was originally defined in the (cleverly named) [`magrittr`](https://magrittr.tidyverse.org/index.html) package, but is also included in the `dplyr` tidyverse package. The `%>%` symbol can seem confusing and intimidating at first. However, once you understand the basic idea, it can become addicting!
+The ["pipe" symbol (`%>%`)](https://magrittr.tidyverse.org/reference/pipe.html) is a commonly used feature of the _tidyverse_. It was originally defined in the ([cleverly named](https://en.wikipedia.org/wiki/The_Treachery_of_Images)) [`magrittr`](https://magrittr.tidyverse.org/index.html) package, but is also included in the `dplyr` _tidyverse_ package. The `%>%` symbol can seem confusing and intimidating at first. However, once you understand the basic idea, it can become addicting!
 
 The `%>%` symbol is placed between a value on the left and a function on the right. The `%>%` simply takes the value to the left and passes it to the function on the right as the first argument. It acts as a "pipe". That's it!
 
@@ -222,7 +222,7 @@ Notice that we now have a single table with the columns from both tables. There 
 
 ## The `tidyr` Package
 
-While the `dplyr` package includes many functions for manipulating data, we will have a hard time using these tools if our data is not in the correct form. For example, what if we want to compare the viability scores between two drugs in the CCLE study? To do this, we would want the two drugs to be in separate columns, so that we can compare them side-by-side. No amount of subsetting or mutating the table will get us there.
+While the `dplyr` package includes many functions for manipulating data, we would have a hard time using these tools if our data is not in the correct "form". For example, what if we want to compare the viability scores in `pharmacoData` for two drugs in the CCLE study? To do this, we would want the two drugs to be in separate columns, so that we can compare them side-by-side. No amount of subsetting or mutating the table will get us there. We need to fundamentally *transform the shape* of our data. 
 
 This is where the `tidyr` package comes in. The `tidyr` package includes several functions to help with arranging and rearranging our data. We will highlight the two most important functions for this task:
 
@@ -230,6 +230,8 @@ This is where the `tidyr` package comes in. The `tidyr` package includes several
 - `gather`: to **gather** values in multiple columns to a single column.
 
 Again, there are many more functions in the `tidyr` package that we won't have time to cover here. More details can be found on the [`tidyr` reference page](https://tidyr.tidyverse.org/reference/index.html).
+
+Don't worry if it takes some time for these ideas to start making sense! At first, transforming data with `tidyr` can feel like mental yoga.
 
 ### Spreading
 
@@ -303,6 +305,6 @@ We are back to our original dataset!
 
 ## References
 
-For a complete book on how to do data science using R and the tidyverse, we highly recommend the **R for Data Science** book, [available for free online](https://r4ds.had.co.nz/), by Garrett Grolemund and Hadley Wickham.
+For a complete book on how to do data science using R and the _tidyverse_, we highly recommend **R for Data Science**, [available for free online](https://r4ds.had.co.nz/), by Garrett Grolemund and Hadley Wickham.
 
-More practically, the [accompanying websites for the tidyverse packages](https://www.tidyverse.org/) are absolutely amazing, and a great resource for trying to understand how these functions work. When in doubt [ask](https://www.google.com/) [the](https://www.bing.com/) [internet](https://duckduckgo.com/).
+More practically, the [accompanying websites for the tidyverse packages](https://www.tidyverse.org/) are absolutely amazing. These sites are a great resource for trying to understand how these packages work. Also, when in doubt [ask](https://www.google.com/) [the](https://www.bing.com/) [internet](https://duckduckgo.com/).
