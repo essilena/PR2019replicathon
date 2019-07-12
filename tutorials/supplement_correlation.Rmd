@@ -28,6 +28,15 @@ We'll also briefly introduce a third measure of correlation:
 
 3. **Matthews'** correlation coefficient: measures the degree of agreement between *categorical* variables.
 
+## Setup Workspace
+
+We start by loading the tidyverse family of packages and specifying a default plotting theme for our `ggplot` graphics.
+
+```{r}
+library(tidyverse)
+theme_set(theme_bw())
+```
+
 ## Pearson Correlation
 
 Here are some example scatterplots and their resulting correlation coefficients using the Pearson measure of linear association.

@@ -1,10 +1,13 @@
 ---
 title: "Supplement: Dose-Response Modeling"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 ```{r echo=FALSE}
-knitr::opts_chunk$set(cache=FALSE, warning=FALSE)
+knitr::opts_chunk$set(warning=FALSE)
 ```
 
 ## Introduction
@@ -160,7 +163,7 @@ filter( summarizedData, drug=="Nilotinib", cellLine=="22RV1")
 
 The following code, fits a logistic regression model for each of the drug and cell line combinations and estimates both IC50 and AUC values for both the CCLE and the GDSC data. This can take some time to run and the values are stored for further analysis in **Tutorial 2b**.
 
-```{r, cache=TRUE}
+```{r}
 mySummarizedDataFile <- file.path("..", "data", "modelSummarizedPharmacoData.rds")
 
 if (file.exists(mySummarizedDataFile)) {
