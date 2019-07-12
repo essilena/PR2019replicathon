@@ -1,6 +1,6 @@
 # Replicathon 2019 (IQ BIO REU, UPR-RP)
 
-Clone or download this repository to your computer and open the `.Rmd` files in [RStudio](https://rstudio.com/).
+Clone or download [this repository](https://github.com/pkimes/PR2019replicathon) to your computer and open the `.Rmd` files with [RStudio](https://rstudio.com/).
 
 ## Main Analysis Template
 
@@ -66,6 +66,6 @@ For full reproducibility, this is the script to generate the `RDS` files. This s
 
 ## Code of Conduct
 
-To ensure a safe, enjoyable, and friendly experience for everyone who participates, we have a strict [code of conduct](code_of_conduct.md) that all participants are expected to follow.
+To ensure a safe, enjoyable, and friendly experience for everyone who participates, we have a strict [code of conduct](code_of_conduct.html) that all participants are expected to follow.
 
 
